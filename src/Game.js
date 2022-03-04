@@ -7,10 +7,6 @@ function Piece() {
   const a = useRef()
   const [state,setState] = useState({x: 0, y: 0})
 
-  function fitToGrid() {
-  
-  }
-
   function handleDrag (e,ui) {
     setState(
       {
@@ -20,13 +16,14 @@ function Piece() {
     )
   }
 
-  // const handleStop = () => {
-  //   if state
-  // }
+  const handleStop = (e) => {
+    let square = document.elementsFromPoint(e.clientX,e.clientY)[1]
+    console.log(square)
+  }
 
   return (
     <div className="piece-main">
-      <Draggable ref={a} onStop={()=>fitToGrid} onDrag={handleDrag}>
+      <Draggable ref={a} onStop={handleStop} onDrag={handleDrag}>
         <div className="piece">
           {state.x.toFixed()}
         </div>

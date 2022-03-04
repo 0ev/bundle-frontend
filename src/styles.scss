@@ -55,8 +55,8 @@ table {
 // login / signin
 
 .piece-main {
-  position: relative;
-  z-index: 4;
+  // position: relative;
+  // z-index: 4;
   .piece {
     position: relative;
     background-color: #31507d;
@@ -67,6 +67,8 @@ table {
     border-radius: 4vh;
   }
 }
+
+
 
 .login {
   
