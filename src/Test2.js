@@ -3,6 +3,44 @@ import ReactDOM from "react-dom";
 import Draggable from "react-draggable";
 import "./styles.css";
 
+class Picee extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      position: {
+        x: -400,
+        y: 200
+      }
+    }
+  }
+
+  window.addEventListener("resize",this.onResize)
+
+  onDrag(e,pos) {
+    const { x, y } = pos;
+    this.state.position = { x, y }
+  }
+
+  onStop(e,pos) {
+    this.onDrag(e, pos)
+    var elements = document.elementsFromPoint(e.clientX,e.clientY)
+    setBeforeElement(elements[1].id)
+    var squareValues = elements[1].getBoundingClientRect()
+    var backgroundValues = elements[3].getBoundingClientRect()
+    var errorCorrection = (elements[0].getBoundingClientRect().width-elements[1].getBoundingClientRect().width)/2
+    var piecePosition = {x:(squareValues.x-backgroundValues.x-errorCorrection),y:(squareValues.y-backgroundValues.y-errorCorrection)}
+    this.state.position = piecePosition
+  }
+
+  onResize()
+
+  render() {
+    return (
+      
+    )
+  }
+}
+
 class App extends Component {
   constructor(props) {
     super(props);

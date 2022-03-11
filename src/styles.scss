@@ -61,29 +61,21 @@ table {
   background-color: #000000;
   color:red;
   z-index: 5;
-  width: 12vh;
-  height: 12vh;
-  border-radius: 6vh;
+  width: 10vh;
+  height: 10vh;
+  border-radius: 5vh;
 }
 
 .pieces-outer{
-  top: calc(-50vh + 50%);
-  left: calc(-50vw + 50%);
   position: absolute;
-  width: 100vw;
-  height: 100vh;
-  filter: contrast(40);
+  filter:url('#goo');
   z-index: 4;
 }
 
-.pieces-inner{
-  position: relative;
-  width: 100%;
-  height: 100%;
-  filter: blur(15px);
-  background-color: #fff;
-  z-index: 4;
+.their{
+  background-color: red !important;
 }
+
 
 .react-draggable-dragged {
   transition: 200ms;
