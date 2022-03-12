@@ -5,7 +5,6 @@ import React from "react"
 
 
 class MyPiece extends React.Component {
-
   constructor(props) {
     super(props)
     this.state = {
@@ -49,6 +48,7 @@ class MyPiece extends React.Component {
     window.removeEventListener("resize", this.updatePos);
   }
 
+  // sync number with position
   updatePos() {
     this.setState({position:this.numToPos(this.state.num)})
   }
@@ -58,13 +58,11 @@ class MyPiece extends React.Component {
     this.setState({class:"dragged"})
     this.props.onDragStart()
   }
-
   onDrag(e, position) {
     const { x, y } = position
     this.state.position = { x, y }
     this.props.onDrag(position,this.state.num)
   }
-
   onDragStop(e, position) {
     this.setState({class:"not-dragged"})
     var el = document.elementsFromPoint(e.clientX,e.clientY)[1]
@@ -83,7 +81,6 @@ class MyPiece extends React.Component {
   returnNum() {
     return(this.state.num)
   }
-
   handleExternalControlStart() {
     this.setState({class:"dragged"})
   }
@@ -111,24 +108,32 @@ class MyPiece extends React.Component {
   }
 }
 
-function Pieces(params) {
-
+function MyPieces(params) {
+  // refs
   const ref1 = useRef()
   const ref2 = useRef()
   const ref3 = useRef()
   const ref4 = useRef()
   const ref5 = useRef()
 
+  // secondary functions
+  function testBoundary(x,y) {
+    return (x>=0 && x<=4 && y>=0 && y<=4)
+  }
+  function deltaDist(num1,num2) {
+    var a = document.getElementsByClassName("cell")[0].getBoundingClientRect().width*1.1
+    return ({x:(num1%5-num2%5)*a,y:(parseInt(num1/5)-parseInt(num2/5))*a})
+  }
+
+  // drag logic
   function onDragStart() {
     ref4.current.handleExternalControlStart()
   }
-
   function onDrag(position,currentNum) {
     var num = ref4.current.returnNum()
     var deltaPos = deltaDist(currentNum,num)
     ref4.current.handleExternalControl({x:position.x-deltaPos.x,y:position.y-deltaPos.y})
   }
-
   function onDragStop(position,prevNum,currentNum) {
     var num = ref4.current.returnNum()
     let deltaNum = currentNum-prevNum
@@ -139,14 +144,7 @@ function Pieces(params) {
     return (test)
   }
 
-  function testBoundary(x,y) {
-    return (x>=0 && x<=4 && y>=0 && y<=4)
-  }
 
-  function deltaDist(num1,num2) {
-    var a = document.getElementsByClassName("cell")[0].getBoundingClientRect().width*1.1
-    return ({x:(num1%5-num2%5)*a,y:(parseInt(num1/5)-parseInt(num2/5))*a})
-  }
   
   return (
     <div className="pieces-outer">
@@ -193,7 +191,7 @@ function Game() {
   return (
     <div className="game-main">
       <Board/>
-      <Pieces/>
+      <MyPieces/>
       <Filter/>
     </div>
   );
