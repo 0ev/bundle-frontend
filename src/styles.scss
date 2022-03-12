@@ -56,7 +56,7 @@ table {
 // login / signin
 
 
-.piece {
+.react-draggable {
   position: absolute;
   background-color: #000000;
   color:red;
@@ -74,14 +74,15 @@ table {
 
 .their{
   background-color: red !important;
+  z-index: 3;
 }
 
 
-.react-draggable-dragged {
+.not-dragged {
   transition: 200ms;
 }
 
-.react-draggable-dragging {
+.dragged {
   transition: 0ms !important;
 }
 

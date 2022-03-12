@@ -1,145 +1,114 @@
 import Draggable from "react-draggable"
 import { useEffect, useRef, useState,Component, useImperativeHandle } from "react"
+import React from "react"
+// import { render } from "sass"
 
 
-function MyPiece({num,onDrag,ref}) {
+class MyPiece extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      num: props.num,
+      position: {
+        x: 0,
+        y: 0
+      },
+      props: props,
+      class:"not-dragged"
+    }
+    this.numToPos = this.numToPos.bind(this)
+    this.onDragStart = this.onDragStart.bind(this)
+    this.onDrag = this.onDrag.bind(this)
+    this.onDragStop = this.onDragStop.bind(this)
+    this.handleExternalControlStart = this.handleExternalControlStart.bind(this)
+    this.handleExternalControl = this.handleExternalControl.bind(this)
+    this.handleExternalControlStop = this.handleExternalControlStop.bind(this)
+    this.updatePos = this.updatePos.bind(this)
+    this.returnNum = this.returnNum.bind(this)
+  }
 
   // convert tile number into coordinates
-  const numToPos = (num) => {
+  numToPos(num) {
     try {
-    var a = document.getElementById(num).getBoundingClientRect()
+    var a = document.getElementById(this.state.num).getBoundingClientRect()
     var b = document.getElementsByClassName("game-main")[0].getBoundingClientRect()
-    var c = (a.width - document.getElementsByClassName("piece")[0].getBoundingClientRect().width)/2
+    var c = (a.width - document.getElementsByClassName("react-draggable")[0].getBoundingClientRect().width)/2
     return({x:a.x-b.x+c,y:a.y-b.y+c})}
     catch (err) {
+      console.log(err)
     }
   }
 
-  const [controlledPosition,setControlledPosition] = useState()
-  const [currentNum, _setCurrentNum] = useState(num)
-  const currentNumRef = useRef(currentNum)
-
-  const setCurrentNum = data => {
-    currentNumRef.current = data;
-    _setCurrentNum(data);
-  };
-
-  // fixing moving elements when resizing
-  const resizeHandler = () => {
-    setControlledPosition(numToPos(currentNumRef.current))
-    console.log(currentNumRef.current)
+  // handle resizing
+  componentDidMount() {
+    window.addEventListener("resize", this.updatePos);
+    this.updatePos()
+  }
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updatePos);
   }
 
-  // run once
-  useEffect(() => {
-    window.addEventListener("resize", resizeHandler);
-    return () => {
-      window.removeEventListener('resize', resizeHandler)
-    }
-  }, [])
-
-  useEffect(()=>{setControlledPosition(numToPos(num))},[])
+  updatePos() {
+    this.setState({position:this.numToPos(this.state.num)})
+  }
 
   // drag movement logic
-  const onControlledDrag = (e, position) => {
-    onDrag(position)
-    const { x, y } = position;
-    setControlledPosition({ x, y });
+  onDragStart() {
+    this.setState({class:"dragged"})
+    this.props.onDragStart()
   }
 
-  const onControlledDragStop = (e, position) => {
+  onDrag(e, position) {
+    const { x, y } = position
+    this.state.position = { x, y }
+    this.props.onDrag(position,this.state.num)
+  }
+
+  onDragStop(e, position) {
+    this.setState({class:"not-dragged"})
     var el = document.elementsFromPoint(e.clientX,e.clientY)[1]
-    var elId = el.id
+    var elId = parseInt(el.id)
     var elClass = el.className
-
-    console.log(elClass)
-    if (elClass=="cell") {
-      setCurrentNum(elId)
-      setControlledPosition(numToPos(elId))
+    let test = this.props.onDragStop(position,this.state.num,elId)
+    if (elClass=="cell" && test) {
+      this.setState({num: elId})
+      this.setState({position:this.numToPos(elId)})
     } else {
-      setControlledPosition(numToPos(currentNumRef.current))
+      this.updatePos()
     }
   }
 
-  const handleExternalControl = (position) => {
-    const { x, y } = position;
-    setControlledPosition({ x, y });
+  // for external controls
+  returnNum() {
+    return(this.state.num)
   }
 
-  // render
-  return (
-    <Draggable onStop={onControlledDragStop} onDrag={onControlledDrag} position={controlledPosition}>
-      <div className="piece">
-      </div>
-    </Draggable>
-  )
-}
-
-function TheirPiece({num}) {
-
-  // convert tile number into coordinates
-  const numToPos = (num) => {
-    try {
-    var a = document.getElementById(num).getBoundingClientRect()
-    var b = document.getElementsByClassName("game-main")[0].getBoundingClientRect()
-    var c = (a.width - document.getElementsByClassName("piece")[0].getBoundingClientRect().width)/2
-    return({x:a.x-b.x+c,y:a.y-b.y+c})}
-    catch (err) {
-    }
+  handleExternalControlStart() {
+    this.setState({class:"dragged"})
   }
-
-  const [controlledPosition,setControlledPosition] = useState()
-  const [currentNum, _setCurrentNum] = useState(num)
-  const currentNumRef = useRef(currentNum)
-
-  const setCurrentNum = data => {
-    currentNumRef.current = data;
-    _setCurrentNum(data);
-  };
-
-  // fixing moving elements when resizing
-  const resizeHandler = () => {
-    setControlledPosition(numToPos(currentNumRef.current))
-    console.log(currentNumRef.current)
+  handleExternalControl(position) {
+    this.setState({position:position})
   }
-
-  // run once
-  useEffect(() => {
-    window.addEventListener("resize", resizeHandler);
-    return () => {
-      window.removeEventListener('resize', resizeHandler)
-    }
-  }, [])
-
-  useEffect(()=>{setControlledPosition(numToPos(num))},[])
-
-  // drag movement logic
-  const onControlledDrag = (e, position) => {
-    const { x, y } = position;
-    setControlledPosition({ x, y });
-  }
-
-  const onControlledDragStop = (e, position) => {
-    var el = document.elementsFromPoint(e.clientX,e.clientY)[1]
-    var elId = el.id
-    var elClass = el.className
-
-    console.log(elClass)
-    if (elClass=="cell") {
-      setCurrentNum(elId)
-      setControlledPosition(numToPos(elId))
+  handleExternalControlStop(num,test) {
+    this.setState({class:"not-dragged"})
+    if (test) {
+    console.log(num)
+    this.setState({num:num})
+    this.setState({position:this.numToPos(num)})
     } else {
-      setControlledPosition(numToPos(currentNumRef.current))
+      this.updatePos()
     }
   }
 
   // render
-  return (
-    <Draggable onStop={onControlledDragStop} onDrag={onControlledDrag} position={controlledPosition}>
-      <div className="piece their">
+  render() {
+    return(
+    <Draggable onStart={this.onDragStart} onStop={this.onDragStop} onDrag={this.onDrag} position={this.state.position} disabled={false}>
+      <div className={this.state.class}>
       </div>
-    </Draggable>
-  )
+    </Draggable>)
+  }
 }
 
 function Pieces(params) {
@@ -150,35 +119,45 @@ function Pieces(params) {
   const ref4 = useRef()
   const ref5 = useRef()
 
-  let sync = {1:ref1,2:ref2,3:ref3,4:ref4,5:ref5}
+  function onDragStart() {
+    ref4.current.handleExternalControlStart()
+  }
 
-  function onDrag(position) {
-    
+  function onDrag(position,currentNum) {
+    var num = ref4.current.returnNum()
+    var deltaPos = deltaDist(currentNum,num)
+    ref4.current.handleExternalControl({x:position.x-deltaPos.x,y:position.y-deltaPos.y})
+  }
+
+  function onDragStop(position,prevNum,currentNum) {
+    var num = ref4.current.returnNum()
+    let deltaNum = currentNum-prevNum
+    let x = num%5 + currentNum%5 - prevNum%5
+    let y = parseInt(num/5) + parseInt(currentNum/5) - parseInt(prevNum/5)
+    let test = testBoundary(x,y)
+    ref4.current.handleExternalControlStop(num+deltaNum,test)
+    return (test)
+  }
+
+  function testBoundary(x,y) {
+    return (x>=0 && x<=4 && y>=0 && y<=4)
+  }
+
+  function deltaDist(num1,num2) {
+    var a = document.getElementsByClassName("cell")[0].getBoundingClientRect().width*1.1
+    return ({x:(num1%5-num2%5)*a,y:(parseInt(num1/5)-parseInt(num2/5))*a})
   }
   
   return (
     <div className="pieces-outer">
-      <MyPiece num={20} ref={ref1}/>
-      <MyPiece num={21} ref={ref2}/>
-      <MyPiece num={22} ref={ref3}/>
-      <MyPiece num={23} ref={ref4}/>
-      <MyPiece num={24} ref={ref5}/>
+      <MyPiece num={20} onDrag={onDrag} onDragStop={onDragStop} onDragStart={onDragStart} ref={ref1}/>
+      <MyPiece num={21} onDrag={onDrag} onDragStop={onDragStop} onDragStart={onDragStart} ref={ref2}/>
+      <MyPiece num={22} onDrag={onDrag} onDragStop={onDragStop} onDragStart={onDragStart} ref={ref3}/>
+      <MyPiece num={23} onDrag={onDrag} onDragStop={onDragStop} onDragStart={onDragStart} ref={ref4}/>
+      <MyPiece num={24} onDrag={onDrag} onDragStop={onDragStop} onDragStart={onDragStart} ref={ref5}/>
     </div>
   )
 }
-
-function TheirPieces(params) {
-  return (
-    <div className="their pieces-outer">
-      <TheirPiece num={4}/>
-      <TheirPiece num={3}/>
-      <TheirPiece num={2}/>
-      <TheirPiece num={1}/>
-      <TheirPiece num={0}/>
-    </div>
-  )
-}
-
 
 
 function Board() {
@@ -214,7 +193,6 @@ function Game() {
   return (
     <div className="game-main">
       <Board/>
-      <TheirPieces/>
       <Pieces/>
       <Filter/>
     </div>
