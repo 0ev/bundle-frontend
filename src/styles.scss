@@ -1,5 +1,6 @@
 body,html,#root {
   position: absolute;
+  background-color: #262626;
   top:0%;
   left: 0%;
   width: 100%;
@@ -14,6 +15,41 @@ body,html,#root {
 
 table {
   margin: auto;
+}
+
+.front{
+  text-align: center;
+  .title{
+  }
+}
+
+form {
+  text-align: center;
+  .username{
+    display: flex;
+    justify-content: center;
+    input {
+      width: 40%;
+      height: 2rem;
+      margin: 0.5rem;
+    }
+  }
+
+  .password{
+    display: flex;
+    justify-content: center;
+    input {
+      width: 40%;
+      height: 2rem;
+      margin: 0.5rem;
+    }
+  }
+}
+.static {
+  cursor: not-allowed;
+}
+.draggable {
+  cursor: move;
 }
 
 .game-main{
