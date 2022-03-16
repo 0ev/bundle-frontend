@@ -65,13 +65,13 @@ export default class MyPiece extends React.Component {
       var el = document.elementsFromPoint(e.clientX,e.clientY)[1]
       var elId = parseInt(el.id)
       var elClass = el.className
-      let test = this.props.onDragStop(position,this.state.num,elId)
-      if (elClass=="cell" && test) {
+      if (elClass=="cell") {
         this.setState({num: elId})
         this.setState({position:this.numToPos(elId)})
       } else {
         this.updatePos()
       }
+      this.props.onDragStop(position,this.state.num,elId)
     }
   
     // for external controls
