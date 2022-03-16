@@ -65,9 +65,17 @@ export default class MyPiece extends React.Component {
     this.setState({class:"not-dragged"})
     var els = document.elementsFromPoint(e.clientX,e.clientY)
     let el
+    let count = 0
     for (let i=0;i<els.length;i++) {
         if(els[i].className == "cell") {
             el = els[i]
+        }
+        if(els[i].classList.contains("react-draggable")){
+          count++
+          if (count>1){
+            el=null
+            break
+          }
         }
     }
     if(el){      
@@ -107,7 +115,7 @@ export default class MyPiece extends React.Component {
     return(
     <Draggable onStart={this.onDragStart} onStop={this.onDragStop} onDrag={this.onDrag} position={this.state.position} disabled={false}>
       <div className={this.state.class}>
-          <Pawn/>
+          <Pawn fill="darkorange"/>
       </div>
     </Draggable>)
   }
