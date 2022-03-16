@@ -103,7 +103,8 @@ export default class MyPieces extends Component {
   onDragStop(position,prevNum,currentNum) {
     this.setState({board:[this.ref1.current.returnNum(),this.ref2.current.returnNum(),this.ref3.current.returnNum(),this.ref4.current.returnNum(),this.ref5.current.returnNum()]})
     let bundles = this.findBundle()
-    
+    console.table(bundles)
+
     return(true)
   }
   

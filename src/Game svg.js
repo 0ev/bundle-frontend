@@ -47,7 +47,20 @@ function MyPieces()  {
   };
 
   return (
-    <g>      
+    <g>
+      <defs>
+        <rect id="canvas" width="100%" height="100%" fill="white" />
+        <rect id="shape1" x="40" y="50" width="40" height="70" />
+        <circle id="shape2" cx="50" cy="50" r="50" />
+        <mask id="shape1-cutout">
+            <use href="#canvas"  />
+            <use href="#shape1"  />
+        </mask>
+        <mask id="shape2-cutout">
+            <use href="#canvas"  />
+            <use href="#shape2"  />
+        </mask>
+      </defs>      
       <rect
         x={position.x}
         y={position.y}
