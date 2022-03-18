@@ -150,6 +150,11 @@ export default class MyPieces extends Component {
   sortPoints(arr) {
     for (let i = 0; i < arr.length; i++) {}
   }
+  findBlocks(arr) {
+    let x = arr[0];
+    let y = arr[1];
+    return [];
+  }
   // drag logic
   onDragStart() {}
   onDrag(position, currentNum) {}
