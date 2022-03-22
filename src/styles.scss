@@ -1,7 +1,9 @@
-body,html,#root {
+body,
+html,
+#root {
   position: absolute;
   background-color: #262626;
-  top:0%;
+  top: 0%;
   left: 0%;
   width: 100%;
   height: 100%;
@@ -17,31 +19,92 @@ table {
   margin: auto;
 }
 
-.front{
+.front {
   text-align: center;
-  .title{
+  width: 100%;
+  img {
+    margin-bottom: 10vh;
   }
 }
 
 form {
   text-align: center;
-  .username{
+  height: 50%;
+  h1,
+  p {
+    color: #fdf9f0;
+  }
+  .username {
     display: flex;
     justify-content: center;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;
+    .icon {
+      display: flex;
+      border-radius: 10px 0px 0px 10px;
+      height: 6vh;
+      width: 8vw;
+      background-color: #ec7677;
+      align-items: center;
+      justify-content: center;
+      svg {
+        height: 4vh;
+        width: 4vh;
+      }
+    }
     input {
+      padding-left: 2vw;
+      background-color: #414141;
+      border: #636363;
+      border-radius: 0px 10px 10px 0px;
       width: 40%;
-      height: 2rem;
-      margin: 0.5rem;
+      height: 6vh;
+      font-size: 3vh;
+      color: #fdf9f0;
+      box-sizing: border-box;
+      transition: 0.5s;
+    }
+    input:focus {
+      background-color: #636363;
+      outline: none;
     }
   }
 
-  .password{
+  .password {
     display: flex;
     justify-content: center;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;
+    .icon {
+      display: flex;
+      border-radius: 10px 0px 0px 10px;
+      height: 6vh;
+      width: 8vw;
+      background-color: #f7cd83;
+      align-items: center;
+      justify-content: center;
+      svg {
+        height: 4vh;
+        width: 4vh;
+      }
+    }
     input {
+      padding-left: 2vw;
+      background-color: #414141;
+      border: #636363;
+      border-radius: 0px 10px 10px 0px;
       width: 40%;
-      height: 2rem;
-      margin: 0.5rem;
+      height: 6vh;
+      font-size: 3vh;
+      color: #fdf9f0;
+      box-sizing: border-box;
+      transition: 0.5s;
+    }
+    input:focus {
+      background-color: #636363;
+      outline: none;
     }
   }
 }
@@ -52,20 +115,20 @@ form {
   cursor: move;
 }
 
-.game-main{
+.game-main {
   position: relative;
   width: 54vh;
   height: 54vh;
 
-  .grid{
+  .grid {
     position: absolute;
 
     display: grid;
-  
+
     grid-template-columns: repeat(5, 1fr);
-  
+
     grid-template-rows: repeat(5, 1fr);
-  
+
     grid-gap: 1vh;
     z-index: 1;
 
@@ -86,7 +149,6 @@ form {
   }
 }
 
-
 // login / signin
 
 .react-draggable {
@@ -96,17 +158,16 @@ form {
   height: 10vh;
 }
 
-.pieces-outer{
+.pieces-outer {
   position: absolute;
-  filter:url('#goo');
+  filter: url("#goo");
   z-index: 4;
 }
 
-.their{
+.their {
   background-color: red !important;
   z-index: 3;
 }
-
 
 .not-dragged {
   transition: 200ms;
