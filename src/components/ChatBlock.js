@@ -8,15 +8,34 @@ function ChatBlock() {
   };
   const handleFocus = () => {
     console.log(2);
-    setIsChat(!isChat);
-    console.log(isChat);
+    setIsChat(true);
   };
+  const handleExit = () => {
+    console.log(2);
+    setIsChat(false);
+  };
+  const log = "blahblah";
+  const chatLog = <div className="chatlog">{log}</div>;
   return (
-    <div className="chat">
-      <div className="emoji">😎😂🤔😭😱⌛</div>
+    <div className={isChat ? "extended-chat" : "chat"}>
+      <div className={isChat ? "extended-emoji" : "emoji"}>
+        {isChat ? "😎😂🤔😭😱⌛😄😴💩😡👻⏰" : "😎😂🤔😭😱⌛"}
+        {isChat ? (
+          <button className="exit" onClick={handleExit}>
+            x
+          </button>
+        ) : (
+          ""
+        )}
+      </div>
+      {isChat ? chatLog : ""}
       <form onSubmit={handleSubmit}>
         <div>
-          <input placeholder="Enter to Chat" onFocus={handleFocus} />
+          <input
+            className={isChat ? "extended-input" : "input"}
+            placeholder="Enter to Chat"
+            onFocus={handleFocus}
+          />
         </div>
       </form>
     </div>

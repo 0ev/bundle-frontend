@@ -7,12 +7,16 @@ import InfoBlock from "./components/InfoBlock";
 function Game() {
   return (
     <div className="game">
-      <InfoBlock turn={10} myName={"andy"} theirName={"jeuk"} />
+      <div className="game-left">
+        <InfoBlock turn={10} myName={"andy"} theirName={"jeuk"} />
+      </div>
       <div className="game-main">
         <Board />
         <MyPieces />
       </div>
-      <ChatBlock />
+      <div className="game-right">
+        <ChatBlock />
+      </div>
     </div>
   );
 }

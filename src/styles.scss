@@ -113,14 +113,15 @@ form {
 .draggable {
   cursor: move;
 }
-$block-height: 2.5vw;
-$block-width: 10vw;
+$block-height: max(4vh, 3vw);
+$block-width: max(16vh, 12vw);
 .game {
   display: flex;
   width: 100%;
   height: 100%;
   align-items: center;
   justify-content: space-around;
+  flex-wrap: wrap;
   .block {
     width: $block-width;
     height: $block-height;
@@ -192,6 +193,55 @@ $block-width: 10vw;
     font-size: calc($block-height / 3);
     box-sizing: border-box;
     width: $block-width;
+    height: $block-height;
+    text-align: center;
+    outline: none;
+    border: none;
+    border-radius: 0 0 calc($block-height / 2) calc($block-height / 2);
+  }
+}
+
+.extended-chat {
+  width: $block-width;
+  height: $block-height;
+  text-align: center;
+  line-height: $block-height;
+  .extended-emoji {
+    z-index: 10;
+    position: absolute;
+    top: 40vh;
+    left: 47vw;
+    width: 50vw;
+    background-color: #404040;
+    height: $block-height;
+    border-radius: calc($block-height / 2) calc($block-height / 2) 0 0;
+  }
+  .exit {
+    background-color: darkred;
+    color: white;
+    border: none;
+    box-sizing: border-box;
+    height: $block-height;
+    width: 3rem;
+    border-radius: 0 calc($block-height / 2) 0 0;
+    float: right;
+  }
+  .chatlog {
+    z-index: 10;
+    position: absolute;
+    top: 44vh;
+    left: 47vw;
+    width: 50vw;
+    height: 50vh;
+    background-color: #fdf9f0;
+  }
+  input {
+    position: absolute;
+    top: 94vh;
+    left: 47vw;
+    font-size: calc($block-height / 3);
+    box-sizing: border-box;
+    width: 50vw;
     height: $block-height;
     text-align: center;
     outline: none;
