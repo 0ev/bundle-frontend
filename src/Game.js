@@ -1,18 +1,18 @@
 import React from "react";
 import MyPieces from "./components/MyPieces";
 import Board from "./components/Board";
-import Chat from "./components/Chat";
-import Block from "./components/Block";
+import ChatBlock from "./components/ChatBlock";
+import InfoBlock from "./components/InfoBlock";
 
 function Game() {
   return (
     <div className="game">
-      <Block turn={10} myName={"andy"} theirName={"jeuk"} />
+      <InfoBlock turn={10} myName={"andy"} theirName={"jeuk"} />
       <div className="game-main">
         <Board />
         <MyPieces />
       </div>
-      <Chat />
+      <ChatBlock />
     </div>
   );
 }

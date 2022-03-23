@@ -26,7 +26,6 @@ table {
     margin-bottom: 10vh;
   }
 }
-
 form {
   text-align: center;
   height: 50%;
@@ -116,7 +115,6 @@ form {
 }
 $block-height: 2.5vw;
 $block-width: 10vw;
-
 .game {
   display: flex;
   width: 100%;
@@ -179,7 +177,28 @@ $block-width: 10vw;
     }
   }
 }
-// login / signin
+
+.chat {
+  width: $block-width;
+  height: $block-height;
+  text-align: center;
+  line-height: $block-height;
+  .emoji {
+    background-color: #404040;
+    height: $block-height;
+    border-radius: calc($block-height / 2) calc($block-height / 2) 0 0;
+  }
+  input {
+    font-size: calc($block-height / 3);
+    box-sizing: border-box;
+    width: $block-width;
+    height: $block-height;
+    text-align: center;
+    outline: none;
+    border: none;
+    border-radius: 0 0 calc($block-height / 2) calc($block-height / 2);
+  }
+}
 
 .react-draggable {
   position: absolute;

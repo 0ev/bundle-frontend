@@ -1,6 +1,6 @@
 import React from "react";
 
-function Block(props) {
+function InfoBlock(props) {
   return (
     <div className="block">
       <div className="turn">{props.turn}</div>
@@ -10,4 +10,4 @@ function Block(props) {
   );
 }
 
-export default Block;
+export default InfoBlock;
