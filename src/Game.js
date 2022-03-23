@@ -1,15 +1,18 @@
-import React from "react"
+import React from "react";
 import MyPieces from "./components/MyPieces";
 import Board from "./components/Board";
 import Chat from "./components/Chat";
-import { findConfigFile } from "typescript";
+import Block from "./components/Block";
 
 function Game() {
   return (
-    <div className="game-main">
-      <Board/>
-      <MyPieces/>
-      <Chat/>
+    <div className="game">
+      <Block turn={10} myName={"andy"} theirName={"jeuk"} />
+      <div className="game-main">
+        <Board />
+        <MyPieces />
+      </div>
+      <Chat />
     </div>
   );
 }
