@@ -118,6 +118,7 @@ form {
 
 $block-height: max(4vh, 3vw);
 $block-width: max(16vh, 12vw);
+$border-radius: 2.8vh;
 
 .game {
   display: flex;
@@ -150,8 +151,8 @@ $block-width: max(16vh, 12vw);
   }
   .game-main {
     position: relative;
-    width: 54vh;
-    height: 54vh;
+    width: 56vh;
+    height: 56vh;
 
     .grid {
       position: absolute;
@@ -162,13 +163,13 @@ $block-width: max(16vh, 12vw);
 
       grid-template-rows: repeat(5, 1fr);
 
-      grid-gap: 1vh;
+      grid-gap: 1.5vh;
       z-index: 1;
 
       .cell {
         width: 10vh;
         height: 10vh;
-        border-radius: 1vh;
+        border-radius: $border-radius;
         color: rgb(211, 211, 211);
         background-color: rgb(211, 211, 211);
         z-index: 1;
@@ -295,9 +296,9 @@ $chat-top: 36vh;
 .react-draggable {
   position: absolute;
   z-index: 5;
-  width: 10vh;
-  height: 10vh;
-  border-radius: 1vh;
+  width: 11.5vh;
+  height: 11.5vh;
+  border-radius: 0vh;
   background-color: red;
 }
 
