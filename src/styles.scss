@@ -299,7 +299,12 @@ $chat-top: 36vh;
   width: 11.5vh;
   height: 11.5vh;
   border-radius: 0vh;
-  background-color: red;
+  background-color: none;
+  text-align: center;
+  line-height: 10vh;
+  color: white;
+  border: red;
+  border-width: 1vh;
 }
 
 .pieces-outer {

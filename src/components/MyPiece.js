@@ -128,9 +128,7 @@ export default class MyPiece extends React.Component {
         position={this.state.position}
         disabled={false}
       >
-        <div className={this.state.class}>
-          <Pawn fill="black" />
-        </div>
+        <div className={this.state.class}>dfsdf</div>
       </Draggable>
     );
   }
