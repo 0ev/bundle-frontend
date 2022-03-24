@@ -14,7 +14,7 @@ export default function Filter() {
                     0 0 0 9 -4"
             result="goo"
           />
-          <feColorMatrix
+          {/* <feColorMatrix
             in="blur"
             type="matrix"
             values="
@@ -33,7 +33,7 @@ export default function Filter() {
                     0 1 0 0 0 
                     0 0 1 0 0  
                     0 0 0 10 -9"
-          />
+          /> */}
         </filter>
       </defs>
     </svg>
