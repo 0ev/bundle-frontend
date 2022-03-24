@@ -3,6 +3,7 @@ import MyPieces from "./components/MyPieces";
 import Board from "./components/Board";
 import ChatBlock from "./components/ChatBlock";
 import InfoBlock from "./components/InfoBlock";
+import Filter from "./components/Filter";
 
 function Game() {
   return (
@@ -13,6 +14,7 @@ function Game() {
       <div className="game-main">
         <Board />
         <MyPieces />
+        <Filter />
       </div>
       <div className="game-right">
         <ChatBlock />

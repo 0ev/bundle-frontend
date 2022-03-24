@@ -4,14 +4,12 @@ import { useState } from "react";
 function ChatBlock() {
   const [isChat, setIsChat] = useState(false);
   const handleSubmit = () => {
-    console.log(1);
+    setIsChat(true);
   };
   const handleFocus = () => {
-    console.log(2);
     setIsChat(true);
   };
   const handleExit = () => {
-    console.log(2);
     setIsChat(false);
   };
   const log = "blahblah";

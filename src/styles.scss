@@ -26,6 +26,7 @@ table {
     margin-bottom: 10vh;
   }
 }
+
 form {
   text-align: center;
   height: 50%;
@@ -110,11 +111,14 @@ form {
 .static {
   cursor: not-allowed;
 }
+
 .draggable {
   cursor: move;
 }
+
 $block-height: max(4vh, 3vw);
 $block-width: max(16vh, 12vw);
+
 .game {
   display: flex;
   width: 100%;
@@ -164,7 +168,7 @@ $block-width: max(16vh, 12vw);
       .cell {
         width: 10vh;
         height: 10vh;
-        border-radius: 10px;
+        border-radius: 1vh;
         color: rgb(211, 211, 211);
         background-color: rgb(211, 211, 211);
         z-index: 1;
@@ -201,6 +205,8 @@ $block-width: max(16vh, 12vw);
   }
 }
 
+$chat-top: 36vh;
+
 .extended-chat {
   width: $block-width;
   height: $block-height;
@@ -209,7 +215,7 @@ $block-width: max(16vh, 12vw);
   .extended-emoji {
     z-index: 10;
     position: absolute;
-    top: 40vh;
+    top: $chat-top;
     left: 47vw;
     width: 50vw;
     background-color: #404040;
@@ -229,7 +235,7 @@ $block-width: max(16vh, 12vw);
   .chatlog {
     z-index: 10;
     position: absolute;
-    top: 44vh;
+    top: calc($chat-top + $block-height);
     left: 47vw;
     width: 50vw;
     height: 50vh;
@@ -237,7 +243,7 @@ $block-width: max(16vh, 12vw);
   }
   input {
     position: absolute;
-    top: 94vh;
+    top: calc($chat-top + $block-height + 50vh);
     left: 47vw;
     font-size: calc($block-height / 3);
     box-sizing: border-box;
@@ -250,11 +256,49 @@ $block-width: max(16vh, 12vw);
   }
 }
 
+.enter {
+  width: 100%;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr 2fr 2fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  & > * {
+    background-color: #fdf9f0;
+    border: none;
+    height: 5vh;
+    border-radius: 1.25vh;
+    font-size: 2vh;
+    transition: 0.2s;
+  }
+  & > *:hover {
+    font-size: 2.5vh;
+    background-color: #faebc7;
+  }
+  .a {
+    grid-column: 2/3;
+    grid-row: 1/2;
+  }
+  .b {
+    grid-column: 3/4;
+    grid-row: 1/2;
+  }
+  .c {
+    grid-column: 2/3;
+    grid-row: 2/3;
+  }
+  .d {
+    grid-column: 3/4;
+    grid-row: 2/3;
+  }
+}
+
 .react-draggable {
   position: absolute;
   z-index: 5;
   width: 10vh;
   height: 10vh;
+  border-radius: 1vh;
+  background-color: red;
 }
 
 .pieces-outer {

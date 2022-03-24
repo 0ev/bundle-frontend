@@ -1,18 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './styles.scss';
-import Game from './Game';
-import Front from './Front';
-import Signin from './Signin';
-import Signup from './Signup';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./styles.scss";
+import Game from "./Game";
+import Front from "./Front";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { io } from 'socket.io-client';
+import { io } from "socket.io-client";
 
-const socket = io("https://bundle-game.herokuapp.com/")
+const socket = io("https://bundle-game.herokuapp.com/");
 
-
-
-socket.on("disconnect", function() {
+socket.on("disconnect", function () {
   console.error("Disconnected");
 });
 
@@ -23,13 +19,11 @@ socket.on("connect", function () {
 ReactDOM.render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<Front socket={socket}/>}/>
-      <Route path="game" element={<Game socket={socket}/>}/>
-      <Route path="signin" element={<Signin socket={socket}/>}/>
-      <Route path="signup" element={<Signup socket={socket}/>}/>
+      <Route path="/" element={<Front socket={socket} />} />
+      <Route path="game" element={<Game socket={socket} />} />
     </Routes>
   </BrowserRouter>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
