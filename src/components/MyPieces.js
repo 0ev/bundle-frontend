@@ -1,18 +1,26 @@
 import { useRef, useState, Component, createRef } from "react";
 import React from "react";
 import MyPiece from "./MyPiece";
-
+import Icon from "./Icon";
 export default class MyPieces extends Component {
   constructor(props) {
     super(props);
     this.state = {
       board: [20, 21, 22, 23, 24],
+      refList: [],
     };
+
+    // refs
     this.ref1 = createRef();
     this.ref2 = createRef();
     this.ref3 = createRef();
     this.ref4 = createRef();
     this.ref5 = createRef();
+    this.iref1 = createRef();
+    this.iref2 = createRef();
+    this.iref3 = createRef();
+    this.iref4 = createRef();
+    this.iref5 = createRef();
     this.onDrag = this.onDrag.bind(this);
     this.onDragStart = this.onDragStart.bind(this);
     this.onDragStop = this.onDragStop.bind(this);
@@ -25,11 +33,27 @@ export default class MyPieces extends Component {
     this.bundlesToPoints = this.bundlesToPoints.bind(this);
     this.isEqual = this.isEqual.bind(this);
     this.sortPoints = this.sortPoints.bind(this);
+    this.numToPos = this.numToPos.bind(this);
   }
 
-  // refs
-
   // secondary functions
+  numToPos(num) {
+    try {
+      var a = document.getElementById(num).getBoundingClientRect();
+      var b = document
+        .getElementsByClassName("game-main")[0]
+        .getBoundingClientRect();
+      var c =
+        (a.width -
+          document
+            .getElementsByClassName("react-draggable")[0]
+            .getBoundingClientRect().width) /
+        2;
+      return { x: a.x - b.x + c, y: a.y - b.y + c };
+    } catch (err) {
+      console.log(err);
+    }
+  }
   testBoundary(x, y) {
     return x >= 0 && x <= 4 && y >= 0 && y <= 4;
   }
@@ -156,9 +180,25 @@ export default class MyPieces extends Component {
     return [];
   }
   // drag logic
-  onDragStart() {}
-  onDrag(position, currentNum) {}
-  onDragStop(position, prevNum, currentNum) {
+  onDragStart(id) {
+    console.log(id);
+    let irefList = [this.iref1, this.iref2, this.iref3, this.iref4, this.iref5];
+    irefList[id - 1].current.start();
+  }
+  onDrag(position, id) {
+    let a = { x: position.x, y: position.y };
+    let irefList = [this.iref1, this.iref2, this.iref3, this.iref4, this.iref5];
+    irefList[id - 1].current.control(position);
+  }
+  onDragStop(position, prevNum, currentNum, id) {
+    let irefList = [this.iref1, this.iref2, this.iref3, this.iref4, this.iref5];
+    let refList = [this.ref1, this.ref2, this.ref3, this.ref4, this.ref5];
+    irefList[id - 1].current.control(
+      this.numToPos(refList[id - 1].current.returnNum())
+    );
+
+    irefList[id - 1].current.stop();
+
     this.setState({
       board: [
         this.ref1.current.returnNum(),
@@ -178,42 +218,55 @@ export default class MyPieces extends Component {
   render() {
     console.log(this.state.board);
     return (
-      <div className="pieces-outer">
-        <MyPiece
-          num={20}
-          onDrag={this.onDrag}
-          onDragStop={this.onDragStop}
-          onDragStart={this.onDragStart}
-          ref={this.ref1}
-        />
-        <MyPiece
-          num={21}
-          onDrag={this.onDrag}
-          onDragStop={this.onDragStop}
-          onDragStart={this.onDragStart}
-          ref={this.ref2}
-        />
-        <MyPiece
-          num={22}
-          onDrag={this.onDrag}
-          onDragStop={this.onDragStop}
-          onDragStart={this.onDragStart}
-          ref={this.ref3}
-        />
-        <MyPiece
-          num={23}
-          onDrag={this.onDrag}
-          onDragStop={this.onDragStop}
-          onDragStart={this.onDragStart}
-          ref={this.ref4}
-        />
-        <MyPiece
-          num={24}
-          onDrag={this.onDrag}
-          onDragStop={this.onDragStop}
-          onDragStart={this.onDragStart}
-          ref={this.ref5}
-        />
+      <div>
+        <Icon ref={this.iref1} num={20} />
+        <Icon ref={this.iref2} num={21} />
+        <Icon ref={this.iref3} num={22} />
+        <Icon ref={this.iref4} num={23} />
+        <Icon ref={this.iref5} num={24} />
+
+        <div className="pieces-outer">
+          <MyPiece
+            id={1}
+            num={20}
+            onDrag={this.onDrag}
+            onDragStop={this.onDragStop}
+            onDragStart={this.onDragStart}
+            ref={this.ref1}
+          />
+          <MyPiece
+            id={2}
+            num={21}
+            onDrag={this.onDrag}
+            onDragStop={this.onDragStop}
+            onDragStart={this.onDragStart}
+            ref={this.ref2}
+          />
+          <MyPiece
+            id={3}
+            num={22}
+            onDrag={this.onDrag}
+            onDragStop={this.onDragStop}
+            onDragStart={this.onDragStart}
+            ref={this.ref3}
+          />
+          <MyPiece
+            id={4}
+            num={23}
+            onDrag={this.onDrag}
+            onDragStop={this.onDragStop}
+            onDragStart={this.onDragStart}
+            ref={this.ref4}
+          />
+          <MyPiece
+            id={5}
+            num={24}
+            onDrag={this.onDrag}
+            onDragStop={this.onDragStop}
+            onDragStart={this.onDragStart}
+            ref={this.ref5}
+          />
+        </div>
       </div>
     );
   }

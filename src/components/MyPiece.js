@@ -24,6 +24,11 @@ export default class MyPiece extends React.Component {
     this.handleExternalControlStop = this.handleExternalControlStop.bind(this);
     this.updatePos = this.updatePos.bind(this);
     this.returnNum = this.returnNum.bind(this);
+    this.returnId = this.returnId.bind(this);
+  }
+
+  returnId() {
+    return this.props.id;
   }
 
   // convert tile number into coordinates
@@ -62,12 +67,12 @@ export default class MyPiece extends React.Component {
   // drag movement logic
   onDragStart() {
     this.setState({ class: "dragged" });
-    this.props.onDragStart();
+    this.props.onDragStart(this.props.id);
   }
   onDrag(e, position) {
     const { x, y } = position;
     this.state.position = { x, y };
-    this.props.onDrag(position, this.state.num);
+    this.props.onDrag(position, this.props.id);
   }
   onDragStop(e, position) {
     this.setState({ class: "not-dragged" });
@@ -78,7 +83,10 @@ export default class MyPiece extends React.Component {
       if (els[i].className == "cell") {
         el = els[i];
       }
-      if (els[i].classList.contains("react-draggable")) {
+      if (
+        els[i].classList.contains("react-draggable") &&
+        !els[i].classList.contains("piece-icon")
+      ) {
         count++;
         if (count > 1) {
           el = null;
@@ -94,7 +102,7 @@ export default class MyPiece extends React.Component {
       this.updatePos();
     }
 
-    this.props.onDragStop(position, this.state.num, elId);
+    this.props.onDragStop(position, this.state.num, elId, this.props.id);
   }
 
   // for external controls

@@ -320,3 +320,10 @@ $chat-top: 36vh;
 .dragged {
   transition: 0ms !important;
 }
+
+.piece-icon {
+  position: absolute;
+  z-index: 2;
+  background-color: transparent !important;
+  // transition: 0.5s;
+}

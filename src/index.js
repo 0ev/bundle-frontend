@@ -6,7 +6,9 @@ import Front from "./Front";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { io } from "socket.io-client";
 
-const socket = io("https://bundle-game.herokuapp.com/");
+const socket = io("http://104.248.235.255/", {
+  cors: { origin: "*" },
+});
 
 socket.on("disconnect", function () {
   console.error("Disconnected");
@@ -19,7 +21,7 @@ socket.on("connect", function () {
 ReactDOM.render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<Front socket={socket} />} />
+      <Route path="/" element={<Front />} />
       <Route path="game" element={<Game socket={socket} />} />
     </Routes>
   </BrowserRouter>,
